@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Board</class>
+ <widget class="QMainWindow" name="Board">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>750</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>西瓜棋</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Resources.qrc">
+    <normaloff>:/imags/Resources/imags/Knob Green.png</normaloff>:/imags/Resources/imags/Knob Green.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QToolBar{
+    border-style:none;
+}
+</string>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>32</width>
+    <height>32</height>
+   </size>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
+   <widget class="QMenu" name="menu_G">
+    <property name="title">
+     <string>对局(&amp;G)</string>
+    </property>
+    <addaction name="action_New"/>
+   </widget>
+   <widget class="QMenu" name="menu_F">
+    <property name="title">
+     <string>功能(&amp;F)</string>
+    </property>
+    <addaction name="action_Back"/>
+    <addaction name="action_Peace"/>
+    <addaction name="action_Resign"/>
+    <addaction name="separator"/>
+    <addaction name="action_Flush"/>
+   </widget>
+   <widget class="QMenu" name="menu_V">
+    <property name="title">
+     <string>视图(&amp;V)</string>
+    </property>
+    <addaction name="action_DisplayToolBar"/>
+    <addaction name="action_CloseMenuBar"/>
+   </widget>
+   <widget class="QMenu" name="menu_H">
+    <property name="title">
+     <string>帮助(&amp;H)</string>
+    </property>
+    <addaction name="action_Help"/>
+    <addaction name="action_About"/>
+   </widget>
+   <addaction name="menu_G"/>
+   <addaction name="menu_F"/>
+   <addaction name="menu_V"/>
+   <addaction name="menu_H"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_New"/>
+   <addaction name="action_Back"/>
+   <addaction name="action_Peace"/>
+   <addaction name="action_Resign"/>
+   <addaction name="action_Flush"/>
+   <addaction name="action_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_New">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/imags/Resources/imags/Knob Add.png</normaloff>:/imags/Resources/imags/Knob Add.png</iconset>
+   </property>
+   <property name="text">
+    <string>新对局(&amp;N)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="action_Back">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/imags/Resources/imags/Knob Snapback.png</normaloff>:/imags/Resources/imags/Knob Snapback.png</iconset>
+   </property>
+   <property name="text">
+    <string>悔棋(&amp;Z)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="action_Peace">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/imags/Resources/imags/Knob Valid Green.png</normaloff>:/imags/Resources/imags/Knob Valid Green.png</iconset>
+   </property>
+   <property name="text">
+    <string>和棋(&amp;P)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="action_Resign">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/imags/Resources/imags/Knob Cancel.png</normaloff>:/imags/Resources/imags/Knob Cancel.png</iconset>
+   </property>
+   <property name="text">
+    <string>认输(&amp;R)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="action_DisplayToolBar">
+   <property name="text">
+    <string>显示工具栏</string>
+   </property>
+  </action>
+  <action name="action_Help">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/imags/Resources/imags/Knob Help.png</normaloff>:/imags/Resources/imags/Knob Help.png</iconset>
+   </property>
+   <property name="text">
+    <string>玩法</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="action_CloseMenuBar">
+   <property name="text">
+    <string>关闭菜单栏</string>
+   </property>
+  </action>
+  <action name="action_Flush">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/imags/Resources/imags/Knob Loop Off.png</normaloff>:/imags/Resources/imags/Knob Loop Off.png</iconset>
+   </property>
+   <property name="text">
+    <string>刷新</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
