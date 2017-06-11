@@ -13,7 +13,7 @@
     * 源代码包：[watermelon-chess-6.1-source.zip](https://github.com/tatwd/watermelon-chess/raw/master/wiki-resources/downloads/watermelon-chess-6.1-src.zip)
 
 * ## 版本 Version
-    
+   
     * 6.1
 
 > You can use the [editor on GitHub](https://github.com/tatwd/watermelon-chess/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
