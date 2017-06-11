@@ -2,6 +2,7 @@
 #include "ui_ModelDlg.h"
 
 #include "StandAloneDlg.h"
+#include "OnlineDlg.h"
 
 ModelDlg::ModelDlg(QWidget *parent) :
     QDialog(parent),
@@ -28,3 +29,9 @@ void ModelDlg::on_standAloneButton_clicked()
 }
 
 
+
+void ModelDlg::on_onlineButton_clicked()
+{
+    OnlineDlg od(this);
+    od.exec();
+}

@@ -41,7 +41,7 @@ public:
 
 
     /*基本走棋*/
-    QPoint transpCoordToXY(QPoint &);                           //将变换的坐标还原成像素坐标
+    void transpCoordToXY(QPoint &);                           //将变换的坐标还原成像素坐标
     void mouseReleaseEvent(QMouseEvent *);                      //鼠标释放事件
     void click(QPoint pt);                                      //点击鼠标
     virtual void click(int id, int angle, int r);               //虚函数click
@@ -53,7 +53,8 @@ public:
     void moveStone(int movedId, int angle, int r);
     void playMoveSound();                                       //播放走棋声音
     void movePromptInStatusBar();                               //下棋提示，在状态栏显示
-    bool getPolarCoord(QPoint, int &angle, int &r);             //像素坐标转成棋子的极点坐标并判断是否有子,待优化
+    bool getPolarCoord(QPoint pt, int &angle, int &r);             //像素坐标转成棋子的极点坐标并判断是否有子
+    bool getPolarCoord(QPoint pt);
     void saveStep(int movedId, int killId,  int angle, int r,   //保存步数
                   QVector<Step *>& steps);
 
@@ -73,12 +74,16 @@ public:
     void getResult();                           //判断输赢
 
     /*悔棋*/
-    void reliveStone(int id);                   //复活被杀棋子
-    void killStone(int id);                     //杀死棋子
-    void back();                                //悔棋
+    void reliveStone(int id);                          //复活被杀棋子
+    void killStone(int id);                            //杀死棋子
+    void back();                                       //悔棋
     void back(Step* step);
-    void backStep();                            //悔一步
-    bool isKillIdOfStep(int id, QVector<Step*> steps);                //判断死子是否已经被棋子杀死
+    void backStep();                                   //悔一步
+    bool isKillIdOfStep(int id, QVector<Step*> steps); //判断死子是否已经被棋子杀死
+
+    /*其他*/
+    void mouseMoveEvent(QMouseEvent *ev);        //鼠标移动事假
+    void setHandCursor();                        //设置鼠标成手型
 
 
 
@@ -92,6 +97,8 @@ private slots:
     void on_action_Flush_triggered();            //刷新按钮
     void on_action_Resign_triggered();           //认输按钮
     void on_action_Back_triggered();             //悔棋按钮
+
+    void on_action_Peace_triggered();
 
 private:
     Ui::Board *ui;

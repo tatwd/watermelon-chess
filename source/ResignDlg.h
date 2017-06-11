@@ -15,7 +15,7 @@ public:
     explicit ResignDlg(QWidget *parent = 0);
     ~ResignDlg();
 
-    void changeText(bool isblack);
+    void changeText(bool isblack, bool isPeace);
 
 private:
     Ui::ResignDlg *ui;

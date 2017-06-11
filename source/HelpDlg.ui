@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>玩法</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QDialog{

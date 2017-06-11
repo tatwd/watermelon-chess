@@ -15,17 +15,24 @@ ResignDlg::~ResignDlg()
     delete ui;
 }
 
-void ResignDlg::changeText(bool isblack)
+void ResignDlg::changeText(bool isblack, bool isPeace)
 {
-    if(ui->label->text() == "未知胜负")
+    if(!isPeace)
     {
-        if(isblack)
+        if(ui->label->text() == "未知胜负")
         {
-            ui->label->setText("黑输");
+            if(isblack)
+            {
+                ui->label->setText("黑输");
+            }
+            else
+            {
+                ui->label->setText("白输");
+            }
         }
-        else
-        {
-            ui->label->setText("白输");
-        }
+    }
+    else
+    {
+        ui->label->setText("和棋");
     }
 }

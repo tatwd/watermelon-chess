@@ -23,9 +23,10 @@ Board::Board(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //this->setMouseTracking(true);  //设置为不按下鼠标键触发moveEvent
+
     _R = 180; //棋盘外圆半径
     init(); //初始化棋子
-
 
     //ui->mainToolBar->close(); //默认关闭工具栏
     ui->statusBar->showMessage(tr("按F1查看规则"));
@@ -236,11 +237,11 @@ void Board::getAROfBoard(int pos, int &angle, int &r)
 //---------------------------------------------基本走棋-----------------------------------------------------//
 
 /*将变换后的坐标还原成像素坐标*/
-QPoint Board::transpCoordToXY(QPoint &pos)
+void Board::transpCoordToXY(QPoint &pos)
 {
     pos.rx() -= width()/2;
     pos.ry() -= height()/2;
-    return pos;
+    //return pos;
 }
 
 /*鼠标释放事件*/
@@ -260,7 +261,7 @@ void Board::mouseReleaseEvent(QMouseEvent *ev)
 void Board::click(QPoint pt)
 {
     //将坐标还原成像素坐标
-    pt = transpCoordToXY(pt);
+    transpCoordToXY(pt);
 
     //将pt转化成棋子的极角、极径,然后判断此极点上是否有棋子
 
@@ -396,7 +397,22 @@ bool Board::getPolarCoord(QPoint pt, int &angle, int &r)
         int dx = c.x() - pt.x();
         int dy = c.y() - pt.y();
         if((dx*dx + dy*dy) < _r*_r)
+        {
             return true;
+        }
+    }
+    return false;
+}
+bool Board::getPolarCoord(QPoint pt)
+{
+    int angle = 0;
+    int r = 0;
+
+    bool inBoardPoint = getPolarCoord(pt, angle, r);
+    if(inBoardPoint)
+    {
+        int id = getStoneId(angle, r);
+        return canMove(id, angle, r);
     }
     return false;
 }
@@ -405,17 +421,6 @@ bool Board::getPolarCoord(QPoint pt, int &angle, int &r)
 void Board::saveStep(int movedId, int killId, int angle, int r, QVector<Step *> &steps)
 {
     GetAR(iangle, ir, movedId);
-
-//    while(steps.count())
-//    {
-//        Step* step = steps.last();
-//        steps.removeLast();
-//        if(step->_movedId == movedId && step->_killId == killId &&
-//                step->_angleFrom == iangle && step->_rFrom == ir &&
-//                step->_angleTo == angle && step->_rTo == r)
-//            return;
-//        delete step;
-//    }
 
     Step* step = new Step;
 
@@ -707,11 +712,12 @@ void Board::setBeBlackTurn()
 /*判断输赢*/
 void Board::getResult()
 {
+    bool isPeace = false;
     if(getNumOfStone(_beBlackTurn) < 3)  //小于3颗即输
     {
         //弹出认输框
         ResignDlg resignDlg(this);
-        resignDlg.changeText(_beBlackTurn);
+        resignDlg.changeText(_beBlackTurn, isPeace);
         QApplication::beep();  //警报声
         resignDlg.exec();
 
@@ -778,6 +784,31 @@ void Board::back()
     backStep();
 }
 
+/*更改鼠标形状,未实现*/
+void Board::mouseMoveEvent(QMouseEvent *ev)
+{
+//    QPoint mp = ev->pos();
+
+//    transpCoordToXY(mp);
+
+//    bool inStone = getPolarCoord(mp);
+//    if(inStone)
+//    {
+//        this->setCursor(Qt::PointingHandCursor);
+//    }
+//    else
+//    {
+//        this->setCursor(Qt::ArrowCursor);      //范围之外变回原来形状
+//    }
+}
+
+/*设置鼠标成手型*/
+void Board::setHandCursor()
+{
+    setCursor(QCursor(Qt::PointingHandCursor));
+}
+
+
 //---------------------------------------------菜单栏-------------------------------------------------------//
 
 /*对局*/
@@ -793,10 +824,19 @@ void Board::on_action_Back_triggered()    //悔棋
 {
     back();
 }
+void Board::on_action_Peace_triggered()   //和棋
+{
+    bool isPeace = true;
+    ResignDlg rd(this);
+    rd.changeText(_beBlackTurn, isPeace);
+    QApplication::beep();  //警报声
+    rd.exec();
+}
 void Board::on_action_Resign_triggered()  //认输
 {
+    bool isPeace = false;
     ResignDlg rd(this);
-    rd.changeText(_beBlackTurn);
+    rd.changeText(_beBlackTurn, isPeace);
     QApplication::beep();  //警报声
     rd.exec();
 }
@@ -846,4 +886,3 @@ void Board::on_action_Help_triggered()  //玩法
     HelpDlg helpDlg(this);
     helpDlg.exec();
 }
-

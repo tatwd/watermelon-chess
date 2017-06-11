@@ -20,6 +20,8 @@ public:
 private slots:
     void on_standAloneButton_clicked();
 
+    void on_onlineButton_clicked();
+
 private:
     Ui::ModelDlg *ui;
 };

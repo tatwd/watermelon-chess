@@ -157,7 +157,10 @@
   </action>
   <action name="action_DisplayToolBar">
    <property name="text">
-    <string>显示工具栏</string>
+    <string>关闭工具栏</string>
+   </property>
+   <property name="toolTip">
+    <string>关闭工具栏</string>
    </property>
   </action>
   <action name="action_Help">

@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     Step.cpp \
     ResignDlg.cpp \
     StandAloneDlg.cpp \
-    MultiGame.cpp
+    MultiGame.cpp \
+    OnlineDlg.cpp
 
 HEADERS  += Board.h \
     Stone.h \
@@ -33,14 +34,16 @@ HEADERS  += Board.h \
     Step.h \
     ResignDlg.h \
     StandAloneDlg.h \
-    MultiGame.h
+    MultiGame.h \
+    OnlineDlg.h
 
 FORMS    += Board.ui \
     ModelDlg.ui \
     AboutDlg.ui \
     HelpDlg.ui \
     ResignDlg.ui \
-    StandAloneDlg.ui
+    StandAloneDlg.ui \
+    OnlineDlg.ui
 
 RESOURCES += \
     Resources.qrc
