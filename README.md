@@ -1,4 +1,6 @@
-## Welcome to GitHub Pages
+## 西瓜棋 Watermelon Chess
+
+![main-win](https://github.com/tatwd/watermelon-chess/blob/master/wiki-resources/imags/main-win.png)
 
 You can use the [editor on GitHub](https://github.com/tatwd/watermelon-chess/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
