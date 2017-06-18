@@ -1,12 +1,12 @@
 ## 西瓜棋 Watermelon Chess
 
-![main-win](https://github.com/tatwd/watermelon-chess/blob/master/wiki-resources/imags/main-win-2.png)
+![main-win](https://github.com/tatwd/watermelon-chess/blob/master/wiki-resources/imags/main-win.png)
 
 * ## 支持 Support   
 
     * windows xp/7/8/10
 
-* ## 下载 Download  
+* ## 下载 Download
 
     * 安装程序：[watermelon-chess-1.6.1-install.exe](https://github.com/tatwd/watermelon-chess/raw/master/wiki-resources/downloads/watermelon-chess-1.6.1-install.exe)
 
