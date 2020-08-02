@@ -14,4 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: build
-      run: cd src && qmake WChess.pro && make
+      run: |
+        cd src
+        qmake WChess.pro
+        make
