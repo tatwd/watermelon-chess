@@ -51,7 +51,7 @@ background-color:rgb(255, 255, 255)
 }</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/imags/Resources/imags/logo.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;制作人员&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;金成龙 刘万明 徐嘉为&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2017.6.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/imags/assets/imags/logo.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;制作人员&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;金成龙 刘万明 徐嘉为&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2017.6.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>

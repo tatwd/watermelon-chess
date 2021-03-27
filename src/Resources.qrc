@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/imags">
-        <file>Resources/imags/Knob Add.png</file>
-        <file>Resources/imags/Knob Cancel.png</file>
-        <file>Resources/imags/Knob Help.png</file>
-        <file>Resources/imags/Knob Snapback.png</file>
-        <file>Resources/imags/Knob Valid Green.png</file>
-        <file>Resources/imags/Knob Green.png</file>
-        <file>Resources/imags/logo.png</file>
-        <file>Resources/imags/Knob Loop Off.png</file>
+        <file>assets/imags/Knob Add.png</file>
+        <file>assets/imags/Knob Cancel.png</file>
+        <file>assets/imags/Knob Help.png</file>
+        <file>assets/imags/Knob Snapback.png</file>
+        <file>assets/imags/Knob Valid Green.png</file>
+        <file>assets/imags/Knob Green.png</file>
+        <file>assets/imags/logo.png</file>
+        <file>assets/imags/Knob Loop Off.png</file>
     </qresource>
 </RCC>
