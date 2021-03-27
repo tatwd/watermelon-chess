@@ -1,6 +1,6 @@
 ## 西瓜棋 Watermelon Chess
 
-![main-win](./wiki/imags/main-win.png)
+<!-- <img style="max-height:200px" alt="snapshot" src="snapshot.png"> -->
 
 <!-- ### 支持 Support   
 
@@ -15,6 +15,9 @@
 ### 版本 Version
     
 - 1.6.1-Beta -->
+
 ```
-cd src && qmake
+cd src && qmake && ./wchess
 ```
+
+![snapshot](snapshot.png)
