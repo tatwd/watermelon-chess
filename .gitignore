@@ -38,3 +38,5 @@ Makefile*
 CMakeLists.txt.user*
 
 tmp
+.idea
+WChess
