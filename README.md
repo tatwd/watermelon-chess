@@ -16,5 +16,5 @@
     
 - 1.6.1-Beta -->
 ```
-qmake 
+cd src && qmake
 ```
