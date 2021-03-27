@@ -272,9 +272,9 @@ void Board::click(QPoint pt)
     if(flag == false)
         return ;
 
-    int clickid = getStoneId(angle, r);
+    int clickId = getStoneId(angle, r);
 
-    click(clickid, angle, r);
+    click(clickId, angle, r);
 }
 void Board::click(int id, int angle, int r)
 {
@@ -373,7 +373,7 @@ void Board::moveStone(int movedId, int angle, int r)
 /*播放走棋声音*/
 void Board::playMoveSound()
 {
-    QSound::play("../Resources/sound/move.wav");
+    QSound::play("Resources/sound/move.wav");
 }
 
 /*下棋提示，在状态栏显示*/
