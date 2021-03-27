@@ -101,12 +101,12 @@ void SingleGame::getAllPossibleMove(QVector<Step *> &steps)
         {
             getAROfBoard(i, angle, r); //获取极坐标
 
-            int killid = getStoneId(angle, r); //目标位置id
+            int killId = getStoneId(angle, r); //目标位置id
             if(canMove(sid, angle, r)) //目标位置无棋子且走后不会死
             {
-                if(killid==-1)
+                if(killId==-1)
                 {
-                    saveStep(sid, killid, angle, r, steps);
+                    saveStep(sid, killId, angle, r, steps);
                 }
             }
         }
