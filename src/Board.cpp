@@ -70,7 +70,7 @@ void Board::paintEvent(QPaintEvent *)
 
 	//------------------------图片部分------------------------------//
 	QImage img;
-	img.load("assets/img/bg3.jpg"); //加载背景图片
+	// img.load("assets/img/bg3.jpg"); //加载背景图片
 	painter.drawImage(QPoint(-cx, -cy), img);
 
 	//------------------------画圆部分------------------------------//
@@ -136,6 +136,7 @@ QPoint Board::polarCoordToXY(QPoint c, double angle, double r)
 
 	return pos;
 }
+
 QPoint Board::polarCoordToXY(QPoint c, int id)
 {
 	return polarCoordToXY(c, _s[id]._polarAngle, _s[id]._polarDiameter);
@@ -198,12 +199,10 @@ void Board::getAROfBoard(int pos, int &angle, int &r)
 	angle = 0;
 	r = 0;
 
-	if (pos >= 0 && pos <= 11) // 0~11第1圈
-	{
+	if (pos >= 0 && pos <= 11) { // 0~11第1圈
 		angle = pos * 30;
 		r = _R;
-	} else if (pos >= 12 && pos <= 19) // 12~19第2，3圈
-	{
+	} else if (pos >= 12 && pos <= 19) { // 12~19第2，3圈
 		angle = (pos % 4) * 90;
 		r = _R * 13 / 18;
 		if (pos > 15)
@@ -225,11 +224,8 @@ void Board::transpCoordToXY(QPoint &pos)
 void Board::mouseReleaseEvent(QMouseEvent *ev)
 {
 	if (ev->button() != Qt::LeftButton) //鼠标左右键判断
-	{
 		return;
-	} else {
-		click(ev->pos()); //获取点击位置坐标
-	}
+	click(ev->pos()); //获取点击位置坐标
 }
 
 /*点击棋盘，获取位置及棋子id*/
@@ -253,8 +249,7 @@ void Board::click(QPoint pt)
 }
 void Board::click(int id, int angle, int r)
 {
-	if (this->_selectId == -1) //棋盘无被选棋子
-	{
+	if (this->_selectId == -1) { //棋盘无被选棋子
 		trySelectStone(id);
 	} else {
 		tryMoveStone(id, angle, r);
@@ -285,7 +280,6 @@ void Board::trySelectStone(int id)
 	if (canSelect(id)) {
 		_selectId = id;
 		_movedId = -1;
-
 		update();
 	}
 }
@@ -293,15 +287,12 @@ void Board::trySelectStone(int id)
 /*尝试走棋*/
 void Board::tryMoveStone(int id, int angle, int r)
 {
-	if (_selectId == id) //同颗棋子被点2次时
-	{
+	if (_selectId == id) { //同颗棋子被点2次时
 		_selectId = -1;
 		_movedId = -1;
-
 		update();
 	} else {
-		if (id != -1) //点中别的棋子时
-		{
+		if (id != -1) { //点中别的棋子时
 			id = -1;
 			return;
 		}
@@ -312,7 +303,6 @@ void Board::tryMoveStone(int id, int angle, int r)
 		playMoveSound();						 //播放走棋声音
 		moveStone(_selectId, _killId, angle, r); //走棋
 		movePromptInStatusBar();				 //走棋提示
-
 		update();
 	}
 }
@@ -321,15 +311,14 @@ void Board::tryMoveStone(int id, int angle, int r)
 void Board::moveStone(int movedId, int killId, int angle, int r)
 {
 	saveStep(movedId, killId, angle, r, _steps);
-
 	moveStone(movedId, angle, r);
 }
+
 void Board::moveStone(int movedId, int angle, int r)
 {
 	//将目标位置的极坐标赋给被选棋子
 	_s[movedId]._polarAngle = angle;
 	_s[movedId]._polarDiameter = r;
-
 	_movedId = movedId;
 	_selectId = -1;
 
@@ -633,9 +622,7 @@ int Board::getNumOfStone(bool isblack)
 	int startId = 0;
 
 	if (!isblack) //当颜色不为黑
-	{
 		startId = 6;
-	}
 
 	for (int i = startId; i < startId + 6; ++i) {
 		if (!_s[i]._dead)
@@ -692,8 +679,8 @@ void Board::backStep() //单步悔棋
 	_selectId = step->_movedId; //使要悔棋子处于被选状态
 
 	movePromptInStatusBar(); //走棋提示
-
 	update();
+
 	delete step;
 }
 
@@ -717,6 +704,7 @@ void Board::back(Step *step)
 	reliveStone(step->_killId); //复活所杀棋子
 	moveStone(step->_movedId, step->_angleFrom, step->_rFrom);
 }
+
 void Board::back() { backStep(); }
 
 /*更改鼠标形状,未实现*/
@@ -746,7 +734,6 @@ void Board::setHandCursor() { setCursor(QCursor(Qt::PointingHandCursor)); }
 void Board::on_action_New_triggered() //新对局
 {
 	ModelDlg modelDlg(this);
-
 	modelDlg.exec();
 }
 
@@ -755,6 +742,7 @@ void Board::on_action_Back_triggered() //悔棋
 {
 	back();
 }
+
 void Board::on_action_Peace_triggered() //和棋
 {
 	bool isPeace = true;
@@ -763,6 +751,7 @@ void Board::on_action_Peace_triggered() //和棋
 	QApplication::beep(); //警报声
 	rd.exec();
 }
+
 void Board::on_action_Resign_triggered() //认输
 {
 	bool isPeace = false;
@@ -771,6 +760,7 @@ void Board::on_action_Resign_triggered() //认输
 	QApplication::beep(); //警报声
 	rd.exec();
 }
+
 void Board::on_action_Flush_triggered() //刷新
 {
 	init();
@@ -789,6 +779,7 @@ void Board::on_action_DisplayToolBar_triggered() //显示工具栏
 		ui->action_DisplayToolBar->setText("显示工具栏");
 	}
 }
+
 void Board::on_action_CloseMenuBar_triggered() //关闭菜单栏
 {
 	if (ui->action_CloseMenuBar->text() == "关闭菜单栏") {
@@ -806,6 +797,7 @@ void Board::on_action_About_triggered() //关于
 	AboutDlg aboutDlg(this);
 	aboutDlg.exec();
 }
+
 void Board::on_action_Help_triggered() //玩法
 {
 	HelpDlg helpDlg(this);
