@@ -495,14 +495,14 @@ bool Board::isDead(int id)
 }
 
 // TODO: 获取周围的点 maybe move to Stone.cpp
-std::vector<BoardPoint> *getSurroundPoints(int id)
+std::vector<int> *Board::getSurroundPoints(int id)
 {
 	Stone stone = _s[id];
 
 	int angle = stone._polarAngle;
 	int diameter = stone._polarDiameter;
 
-	std::vector<BoardPoint> vec;
+	std::vector<int> vec; // 包含是点的索引
 
 	// TODO
 	if (0 == diameter && 0 == angle) { // 原点
