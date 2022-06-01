@@ -106,7 +106,7 @@ void Board::paintEvent(QPaintEvent *)
 
 	//------------------------绘制棋子------------------------------//
 	for (int i = 0; i < 12; ++i) {
-        if (!isDead(i)) { //判断是否是死子
+		if (!isDead(i)) { //判断是否是死子
 			drawStone(painter, ct, i);
 		} else {
 			Step *step = _steps.last(); // bug
@@ -201,13 +201,13 @@ void Board::getAROfBoard(int pos, int &angle, int &r)
 	if (pos >= 0 && pos <= 11) { // 0~11第1圈
 		angle = pos * 30;
 		r = _R;
-    } else if (pos >= 12 && pos <= 15) { // 12~15第2圈
+	} else if (pos >= 12 && pos <= 15) { // 12~15第2圈
 		angle = (pos % 4) * 90;
 		r = _R * 13 / 18;
-    } else if (pos >= 16 && pos <= 19) { // 16~19第3圈
-        angle = (pos % 4) * 90;
-        r = _R / 3;
-    }
+	} else if (pos >= 16 && pos <= 19) { // 16~19第3圈
+		angle = (pos % 4) * 90;
+		r = _R / 3;
+	}
 }
 
 //---------------------------------------------基本走棋-----------------------------------------------------//
@@ -457,127 +457,97 @@ bool Board::canMove(int id, int eAngle, int eR)
 
 bool Board::isDead(int id)
 {
-    QSet<QString> visited;
-    return isDead2(id, visited);
+	QSet<QString> visited;
+	return isDead2(id, visited);
 }
 
 bool Board::isDead2(int id, QSet<QString> visited)
 {
-	// TODO: 修改逻辑，先获取周围的点然后遍历递归判断死活
-    QVector<BoardPoint> aroundPoints = getSurroundPoints(id);
+	// 先获取周围的点然后遍历递归判断死活
+	QVector<BoardPoint> aroundPoints = getSurroundPoints(id);
 
-//	int labs = getLaps(_s[id]._polarDiameter); //棋子所在圈数
+	if (aroundPoints.isEmpty()) {
+		return false;
+	}
 
-//	int surrounded = 0; //被围棋子数
+	for (auto item : aroundPoints) {
 
-//	switch (labs) {
-//	case 0:
-//		surrounded = getSurroundStone(id); //当棋子处于第1圈
-//		if (surrounded == 3) {
-//			_s[id]._dead = true;
-//		}
-//		break;
-//	case 1:								   //当棋子处于第2圈
-//	case 2:								   //当棋子处于第3圈
-//	case 3:								   //当棋子处于第4圈
-//		surrounded = getSurroundStone(id); //当棋子处于圆心时
-//		if (surrounded == 4) {
-//			_s[id]._dead = true;
-//		}
-//		break;
-//	default:
-//		break;
-//	}
+		QString str = item.GetString();
+		if (visited.contains(str)) // 该点已被遍历过了
+			continue;
 
-	// new add
-	//    QVector<int>* stoneid;
-	//    if(getLiberty(id, id, *stoneid) == 0)
-	//        _s[id]._dead = true;
+		visited.insert(str);
 
-	//    delete stoneid;
+		Stone *pStone = getStone(item);
 
-    //Stone curStone = _s[id];
+		if (nullptr == pStone) { // 没棋子
+			_s[id]._dead = false;
+			return false;
+		}
 
-    if (aroundPoints.isEmpty()) {
-        return false;
-    }
+		if (pStone->_black == _s[id]._black) { // 同颜色棋子
 
-    for (auto item : aroundPoints) {
+			if (!isDead2(pStone->_id, visited)) { // 没死
+				_s[id]._dead = false;
+				return false;
+			}
+		}
 
-        QString str = item.GetString();
-        if (visited.contains(str)) // 该点已被遍历过了
-            continue;
+		// delete pStone;
+	}
 
-        visited.insert(str);
-
-        Stone *pStone = getStone(item);
-
-        if (nullptr == pStone) { // 没棋子
-            _s[id]._dead = false;
-            return false;
-        }
-
-        if (pStone->_black == _s[id]._black) { // 同颜色棋子
-
-            if (!isDead2(pStone->_id, visited)) { // 没死
-                _s[id]._dead = false;
-                return false;
-            }
-        }
-
-        //delete pStone;
-    }
-
-    _s[id]._dead = true;
+	_s[id]._dead = true;
 	return _s[id]._dead;
 }
 
-// TODO: 获取周围的点 maybe move to Stone.cpp
+// 获取周围的点 maybe move to Stone.cpp
 QVector<BoardPoint> Board::getSurroundPoints(int id)
 {
-    Stone cur = _s[id];
+	Stone cur = _s[id];
 
-    int angle = cur._polarAngle;
-    int diameter = cur._polarDiameter;
+	int angle = cur._polarAngle;
+	int diameter = cur._polarDiameter;
 
-    QVector<BoardPoint> vec;
+	QVector<BoardPoint> vec;
 
-    int r1 = _R;
-    int r2 = _R * 13 / 18;
-    int r3 = _R / 3;
+	int r1 = _R;
+	int r2 = _R * 13 / 18;
+	int r3 = _R / 3;
 
-    // TODO
-    if (0 == diameter && 0 == angle) { // 原点
-        // 4 个点
-        vec.push_back(BoardPoint(0, r3));
-        vec.push_back(BoardPoint(90, r3));
-        vec.push_back(BoardPoint(180, r3));
-        vec.push_back(BoardPoint(270, r3));
-    } else if (r3 == diameter) { // 第3圈
-        vec.push_back(BoardPoint(angle, r2));
-        vec.push_back(BoardPoint(angle == 270 ? 0 : angle + 90, r3));
-        vec.push_back(BoardPoint(0, 0));
-        vec.push_back(BoardPoint(angle == 0 ? 270 : angle - 90, r3));
-    } else if (r2 == diameter) { // 第2圈
-        vec.push_back(BoardPoint(angle, r3));
-        vec.push_back(BoardPoint(angle + 30, r1));
-        vec.push_back(BoardPoint(angle, r1));
-        vec.push_back(BoardPoint(angle == 0 ? 330 : angle - 30, r1));
-    } else if (r1 == diameter && (angle % 90) == 0) { // 第1圈 中间点
-        vec.push_back(BoardPoint(angle, r2));
-        vec.push_back(BoardPoint(angle + 30, r1));
-        vec.push_back(BoardPoint(angle == 0 ? 330 : angle - 30, r1));
-    } else if (r1 == diameter && (30 == angle || 120 == angle || 210 == angle || 300 == angle)) { // 第1圈 下面1点
-        vec.push_back(BoardPoint(angle + 30, r1));
-        vec.push_back(BoardPoint(angle - 30, r1));
-        vec.push_back(BoardPoint(angle - 30, r2));
-    } else if (r1 == diameter && (60 == angle || 150 == angle || 240 == angle || 330 == angle)) { // 第1圈 上面1点
-        vec.push_back(BoardPoint(angle - 30, r1));
-        vec.push_back(BoardPoint(angle == 330 ? 0 : angle + 30, r1));
-        vec.push_back(BoardPoint(angle == 330 ? 0 : angle + 30, r2));
-    }
+	// TODO
+	if (0 == diameter && 0 == angle) { // 原点
+		// 4 个点
+		vec.push_back(BoardPoint(0, r3));
+		vec.push_back(BoardPoint(90, r3));
+		vec.push_back(BoardPoint(180, r3));
+		vec.push_back(BoardPoint(270, r3));
+	} else if (r3 == diameter) { // 第3圈
+		vec.push_back(BoardPoint(angle, r2));
+		vec.push_back(BoardPoint(angle == 270 ? 0 : angle + 90, r3));
+		vec.push_back(BoardPoint(0, 0));
+		vec.push_back(BoardPoint(angle == 0 ? 270 : angle - 90, r3));
+	} else if (r2 == diameter) { // 第2圈
+		vec.push_back(BoardPoint(angle, r3));
+		vec.push_back(BoardPoint(angle + 30, r1));
+		vec.push_back(BoardPoint(angle, r1));
+		vec.push_back(BoardPoint(angle == 0 ? 330 : angle - 30, r1));
+	} else if (r1 == diameter && (angle % 90) == 0) { // 第1圈 中间点
+		vec.push_back(BoardPoint(angle, r2));
+		vec.push_back(BoardPoint(angle + 30, r1));
+		vec.push_back(BoardPoint(angle == 0 ? 330 : angle - 30, r1));
+	} else if (r1 == diameter && (30 == angle || 120 == angle || 210 == angle ||
+								  300 == angle)) { // 第1圈 下面1点
+		vec.push_back(BoardPoint(angle + 30, r1));
+		vec.push_back(BoardPoint(angle - 30, r1));
+		vec.push_back(BoardPoint(angle - 30, r2));
+	} else if (r1 == diameter && (60 == angle || 150 == angle || 240 == angle ||
+								  330 == angle)) { // 第1圈 上面1点
+		vec.push_back(BoardPoint(angle - 30, r1));
+		vec.push_back(BoardPoint(angle == 330 ? 0 : angle + 30, r1));
+		vec.push_back(BoardPoint(angle == 330 ? 0 : angle + 30, r2));
+	}
 
-    return vec;
+	return vec;
 }
 
 /*获取棋子被围数*/
@@ -615,12 +585,13 @@ bool Board::hasStone(int angle, int r)
 
 Stone *Board::getStone(BoardPoint point)
 {
-    for (int i = 0; i < 12; ++i) {
-        if (_s[i]._polarAngle == point.PolarAngle && _s[i]._polarDiameter == point.PolarDiameter)
-            return &_s[i];
-    }
+	for (int i = 0; i < 12; ++i) {
+		if (_s[i]._polarAngle == point.PolarAngle &&
+			_s[i]._polarDiameter == point.PolarDiameter)
+			return &_s[i];
+	}
 
-    return nullptr;
+	return nullptr;
 }
 
 /*获取单个棋子的气*/
