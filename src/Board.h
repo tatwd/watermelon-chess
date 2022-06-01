@@ -2,9 +2,11 @@
 #define BOARD_H
 
 #include <QMainWindow>
+#include <QSet>
 
 #include "Step.h"
 #include "Stone.h"
+#include "boardpoint.h"
 
 namespace Ui
 {
@@ -62,12 +64,14 @@ class Board : public QMainWindow
 	/*规则部分*/
 	int getLaps(int r);						  //获取点击位置所在圈数
 	bool canMove(int id, int eAngle, int eR); //判断目标位置是否能走棋
-	bool isDead(int id);					  //判断死子
+    bool isDead(int id);					  //判断死子
+    bool isDead2(int id, QSet<QString> visited);					  //判断死子
 	int getSurroundStone(int id);			  //获取棋子被围数
 	int getLiberty(int id);					  //获取单个棋子的气
 
 	// TODO: 获取周围的点 maybe move to Stone.cpp
-	std::vector<int> *getSurroundPoints(int id);
+    QVector<BoardPoint> getSurroundPoints(int id);
+    Stone *getStone(BoardPoint point);
 
 	int getLiberty(int preid, int nexid, QVector<int> &stoneid); // new add
 	bool inNextid(int id, QVector<int> *stoneid);				 // new add

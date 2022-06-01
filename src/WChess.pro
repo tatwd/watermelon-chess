@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     ResignDlg.cpp \
     StandAloneDlg.cpp \
     MultiGame.cpp \
-    OnlineDlg.cpp
+    OnlineDlg.cpp \
+    boardpoint.cpp
 
 HEADERS  += Board.h \
     Stone.h \
@@ -35,7 +36,8 @@ HEADERS  += Board.h \
     ResignDlg.h \
     StandAloneDlg.h \
     MultiGame.h \
-    OnlineDlg.h
+    OnlineDlg.h \
+    boardpoint.h
 
 FORMS    += Board.ui \
     ModelDlg.ui \

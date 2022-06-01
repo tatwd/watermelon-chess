@@ -37,6 +37,7 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
-tmp
-.idea
+tmp/
+.idea/
+.vscode/
 [W|w][C|c]hess
