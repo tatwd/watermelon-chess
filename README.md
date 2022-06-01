@@ -20,4 +20,6 @@
 cd src && qmake && ./wchess
 ```
 
+Or using [Qt Creator](https://www.qt.io/product/development-tools) to build it.
+
 ![snapshot](snapshot.png)
