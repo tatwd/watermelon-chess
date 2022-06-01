@@ -75,6 +75,7 @@ void Board::paintEvent(QPaintEvent *)
 
 	//------------------------画圆部分------------------------------//
 	QPoint ct(0, 0); //圆心
+
 	for (int i = 0; i < 2; ++i) {
 		int i_r = _R;
 		if (i == 1)
@@ -457,6 +458,9 @@ bool Board::canMove(int id, int eAngle, int eR)
 /*判断死子，true为死子*/
 bool Board::isDead(int id)
 {
+
+	// TODO: 修改逻辑，先获取周围的点然后遍历递归判断死活
+
 	int labs = getLaps(_s[id]._polarDiameter); //棋子所在圈数
 
 	int surrounded = 0; //被围棋子数
@@ -488,6 +492,23 @@ bool Board::isDead(int id)
 	//    delete stoneid;
 
 	return _s[id]._dead;
+}
+
+// TODO: 获取周围的点 maybe move to Stone.cpp
+std::vector<BoardPoint> *getSurroundPoints(int id)
+{
+	Stone stone = _s[id];
+
+	int angle = stone._polarAngle;
+	int diameter = stone._polarDiameter;
+
+	std::vector<BoardPoint> vec;
+
+	// TODO
+	if (0 == diameter && 0 == angle) { // 原点
+	}
+
+	return &vec;
 }
 
 /*获取棋子被围数*/
