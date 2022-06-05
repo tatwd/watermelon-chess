@@ -463,6 +463,9 @@ bool Board::isDead(int id)
 
 bool Board::isDead2(int id, QSet<QString> visited)
 {
+    if (_s[id]._dead)
+        return true;
+
 	// 先获取周围的点然后遍历递归判断死活
 	QVector<BoardPoint> aroundPoints = getSurroundPoints(id);
 
@@ -485,6 +488,11 @@ bool Board::isDead2(int id, QSet<QString> visited)
 			return false;
 		}
 
+        if (pStone->_dead) { // 周围棋子已死
+            _s[id]._dead = false;
+            return false;
+        }
+
 		if (pStone->_black == _s[id]._black) { // 同颜色棋子
 
 			if (!isDead2(pStone->_id, visited)) { // 没死
@@ -492,8 +500,6 @@ bool Board::isDead2(int id, QSet<QString> visited)
 				return false;
 			}
 		}
-
-		// delete pStone;
 	}
 
 	_s[id]._dead = true;
